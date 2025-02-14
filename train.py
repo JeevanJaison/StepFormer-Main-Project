@@ -39,7 +39,7 @@ parser.add_argument("--num_gpus", type=int, default=1, help="number of gpus used
 parser.add_argument("--ml_logger", default='wandb', choices=['wandb', 'tensorboard'], help="puts the dataset in local debug mode")
 parser.add_argument("--parallelism", type=str, default="horovod", help="number of gpus used for training")
 parser.add_argument("--model_name", type=str, default="TransformerQueryDecoder", choices=["TransformerQueryDecoder"], help="name of the dataset we are encoding")
-parser.add_argument("--dataset", type=str, default="HowTo100M", choices=["HowTo100M", "CrossTask"], help="name of the dataset we are encoding")
+parser.add_argument("--dataset", type=str, default="CrossTask", choices=["HowTo100M", "CrossTask"], help="name of the dataset we are encoding")
 parser.add_argument("--config_path", type=str, default="./conf/models/", help="path to config file")
 parser.add_argument("--override", nargs=argparse.REMAINDER)
 args = parser.parse_args()
@@ -297,7 +297,7 @@ def main():
     # start training
     if args.num_gpus > 1:
         if args.parallelism == "horovod":
-            trainer = pl.Trainer(
+            trainer = pl.f(
                 accelerator="gpu",
                 devices=1,
                 callbacks=callbacks,
@@ -325,16 +325,16 @@ def main():
             )
     else:
         trainer = pl.Trainer(
-            gpus=1,
+            devices=1,
             callbacks=callbacks,
             max_epochs=CONFIG.TRAIN.NUM_EPOCHS,
             logger=ml_logger,
-            resume_from_checkpoint=last_checkpoint,
+            #ckpt_path=last_checkpoint,
             num_sanity_val_steps=0,
             # gradient_clip_val=0.5,
             reload_dataloaders_every_n_epochs=1,
         )
-    trainer.fit(train_module, data)
+    trainer.fit(train_module, data,ckpt_path="path/to/checkpoint.ckpt")
 
 
 if __name__ == "__main__":

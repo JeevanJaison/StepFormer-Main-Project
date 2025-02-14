@@ -2,12 +2,12 @@ import sys
 import os
 from os.path import join
 
-if os.path.isdir("/user/n.dvornik/"):
+if os.path.isdir("/Users/mymac/Projects/StepFormer-Main-Project"):
     # office machine of n.dvornik
-    PROJECT_PATH = "/user/n.dvornik/Git/unsup-step-pred/"
+    PROJECT_PATH = "/Users/mymac/Projects/StepFormer-Main-Project"
     S3D_PATH = "/user/n.dvornik/Git/S3D_HowTo100M/"
     COIN_PATH = "/user/n.dvornik/Datasets/COIN/"
-    CT_PATH = "/user/n.dvornik/Datasets/crosstask/"
+    CT_PATH = "/Users/mymac/Projects/StepFormer-Main-Project/Dataset/crosstask/"
     YC_PATH = "/user/n.dvornik/Datasets/YouCook2/"
     HOWTO100M = "/user/n.dvornik/Datasets/HowTo100M/"
     PROCEL_PATH = "/user/n.dvornik/Datasets/ProceL/"
